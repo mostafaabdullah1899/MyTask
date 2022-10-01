@@ -1,0 +1,59 @@
+﻿@model InvoiceVM 
+@{
+    ViewData["Title"] = "Invoice";
+     SelectList clientList = new SelectList( ViewBag.Clients ,"Id", "Name");
+     SelectList inventList = new SelectList( ViewBag.Inventors ,"Id", "Name");
+    
+}
+
+<h1>Sale Invoice</h1>
+ 
+           
+<a asp-action="Add" asp-controller="Item"  class="btn btn-primary"> Add Item</a>
+
+<table id="add" class="table table-bordered"> 
+        <tr style="background-color:#283342">
+            <td>Name</td>
+            <td>UnitName</td>
+            <td>Weight</td>
+            <td>Price</td>
+            <td> Quantity </td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+    @foreach (var item in @Model.Items)
+    {
+        <tr>
+            <td> @item.Name</td>
+            <td> @item.UnitName</td>
+             <td> @item.Weight</td>
+              <td> @item.Price</td>
+               <td> @item.Quantity </td>
+                <td> <a style="background-color:green;color:#fff" href="\Item\Update\@item.Id">Edit</a></td>
+                 <td> <a style="background-color:red;color:#fff"href="\Item\Delete\@item.Id">Delete</a></td> 
+        </tr>  
+    }
+</table> 
+          <div class="form-group">
+                <label asp-for="ClientId" class="control-label"> Client</label>
+                <select asp-for="ClientId" class ="form-control" asp-items="clientList"></select>
+            </div> <br /> <br/> 
+
+            <div class="form-group">
+                <label asp-for="InventoryId" class="control-label">Inventory</label>
+                <select name="invent" id="invent" asp-for="InventoryId" class ="form-control" asp-items="inventList"></select>
+            </div> <br /> <br/> 
+
+            <div class="form-group">
+                <input type="submit" value="Print Invoice" class="btn btn-primary" />
+            </div>
+
+
+
+
+
+
+        <style>
+            body{background-color: #009099;}
+            td,label{color:#fff; font-size:larger}
+        </style>
